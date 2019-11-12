@@ -10,10 +10,10 @@ import Moya
 enum APIEndpoint {
     case getRecommendations(movieId: Int, page: Int)
     case getGenres
-    case getLatest
     case getPopular(page: Int)
     case getTopRated(page: Int)
     case getUpcoming(page: Int)
+    case getDetails(movieId: Int)
 }
 
 extension APIEndpoint: TargetType {
@@ -27,20 +27,21 @@ extension APIEndpoint: TargetType {
             return "/movie/\(movieId)/recommendations"
         case .getGenres:
             return "/genre/movie/list"
-        case .getLatest:
-            return "/movie/latest"
         case .getPopular:
             return "/movie/popular"
         case .getTopRated:
             return "/movie/top_rated"
         case .getUpcoming:
             return "/movie/upcoming"
+        case .getDetails(let movieId):
+            return "/movie/\(movieId)"
+            
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getRecommendations, .getGenres, .getLatest, .getPopular, .getTopRated, .getUpcoming:
+        case .getRecommendations, .getGenres, .getPopular, .getTopRated, .getUpcoming, .getDetails:
             return .get
         }
     }
@@ -53,8 +54,10 @@ extension APIEndpoint: TargetType {
         switch self {
         case .getRecommendations(_, let page), .getPopular(let page), .getTopRated(let page), .getUpcoming(let page):
             return .requestParameters(parameters: ["api_key": APIKey, "page": page], encoding: URLEncoding.default)
-        case .getGenres, .getLatest:
+        case .getGenres:
             return .requestParameters(parameters: ["api_key": APIKey], encoding: URLEncoding.default)
+        case .getDetails:
+            return .requestParameters(parameters: ["api_key": APIKey, "append_to_response": "credits,videos,reviews,recommendations"], encoding: URLEncoding.default)
         }
     }
     

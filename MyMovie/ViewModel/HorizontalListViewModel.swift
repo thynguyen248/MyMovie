@@ -8,22 +8,23 @@
 import RxSwift
 import RxCocoa
 
-struct ItemDisplayViewModel {
+struct ItemViewModel {
+    let itemId: Int?
     let title: String?
     let subTitle: String?
-    let imageUrlPath: String?
+    let posterPath: String?
     
-    var imageUrl: URL? {
-        guard let imageUrlPath = imageUrlPath else {
+    var posterUrl: URL? {
+        guard let posterPath = posterPath else {
             return nil
         }
-        return URL(string: "https://image.tmdb.org/t/p/w500\(imageUrlPath)")
+        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
     }
 }
 
 struct HorizontalListViewModel {
-    var dataList = [ItemDisplayViewModel]()
-    var sectionType: SectionType = .Popular
+    var dataList = [ItemViewModel]()
+    var sectionType: HomeSectionType = .Popular
     var pagingInfo: PagingInfoModel?
-    var isLoadingMore = BehaviorRelay<SectionType?>(value: nil)
+    var isLoadingMore = PublishSubject<Void>()
 }

@@ -15,6 +15,8 @@ class HorizontalListTableViewCell: UITableViewCell, ReusableView {
     let viewModel = BehaviorRelay<HorizontalListViewModel?>(value: nil)
     let disposeBag = DisposeBag()
     
+    var didSelectId: ((_ selectedId: Int) -> ())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -76,8 +78,15 @@ extension HorizontalListTableViewCell: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.item == viewModel.value!.dataList.count - 1, viewModel.value?.pagingInfo?.hasMoreData == true {
-            viewModel.value!.isLoadingMore.accept(viewModel.value?.sectionType)
+            viewModel.value!.isLoadingMore.onNext(())
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let type = viewModel.value?.sectionType, type != .Category, let movieId = viewModel.value!.dataList[indexPath.item].itemId else {
+            return
+        }
+        didSelectId?(movieId)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

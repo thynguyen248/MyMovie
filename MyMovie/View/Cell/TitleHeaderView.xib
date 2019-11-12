@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,10 @@
             <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lrx-8B-Wcl">
+                    <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JyJ-7D-idu">
                     <rect key="frame" x="16" y="14" width="168" height="22"/>
                     <subviews>
@@ -37,12 +41,17 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="JyJ-7D-idu" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Bhh-Wm-xHI"/>
+                <constraint firstItem="Lrx-8B-Wcl" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="NHK-kc-beB"/>
                 <constraint firstItem="JyJ-7D-idu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="V3G-B3-wMq"/>
+                <constraint firstItem="Lrx-8B-Wcl" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="ejn-ta-cnN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="leading" secondItem="Lrx-8B-Wcl" secondAttribute="leading" id="i35-nD-G6h"/>
+                <constraint firstAttribute="top" secondItem="Lrx-8B-Wcl" secondAttribute="top" id="mwZ-gX-pn9"/>
                 <constraint firstItem="JyJ-7D-idu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="yYO-wU-d5E"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="bgView" destination="Lrx-8B-Wcl" id="0DM-Go-d1D"/>
                 <outlet property="rightButton" destination="gmF-Ev-VGR" id="1Gu-0M-7KP"/>
                 <outlet property="titleLabel" destination="qKr-LN-9oU" id="Bds-Qb-DUf"/>
             </connections>

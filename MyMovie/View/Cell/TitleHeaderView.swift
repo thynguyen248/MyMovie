@@ -9,6 +9,7 @@ import UIKit
 
 class TitleHeaderView: UITableViewHeaderFooterView, ReusableView {
 
+    @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var rightButton: UIButton!
     

@@ -8,19 +8,13 @@
 import UIKit
 
 struct CategoryResponseModel: Decodable {
-    let response: [CategoryModel]
-    
-    enum CodingKeys: String, CodingKey {
-        case response = "genres"
-    }
+    let genres: [CategoryModel]?
 }
 
 struct CategoryModel: Decodable {
-    let categoryId: Int
-    let name: String
+    let name: String?
     
     enum CodingKeys: String, CodingKey {
-        case categoryId = "id"
-        case name = "name"
+        case name
     }
 }

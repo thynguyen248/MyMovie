@@ -27,15 +27,15 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
         posterImageView.clipsToBounds = true
     }
 
-    func configWithDisplayViewModel(displayItem: ItemDisplayViewModel, sectionType: SectionType) {
-        posterImageView.kf.setImage(with: displayItem.imageUrl)
+    func configWithDisplayViewModel(displayItem: ItemViewModel, sectionType: HomeSectionType) {
+        posterImageView.kf.setImage(with: displayItem.posterUrl)
         bottomTitleLabel.text = displayItem.title
         centerTitleLabel.text = displayItem.title
         subTitleLabel.text = displayItem.subTitle
         updateUI(withSectionType: sectionType)
     }
     
-    func updateUI(withSectionType sectionType: SectionType) {
+    func updateUI(withSectionType sectionType: HomeSectionType) {
         switch sectionType {
         case .Recommendation:
             bottomView.isHidden = true

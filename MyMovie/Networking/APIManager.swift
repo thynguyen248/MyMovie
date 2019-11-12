@@ -71,4 +71,26 @@ class APIManager {
             return Disposables.create()
         }).subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
     }
+    
+    //MARK: - Get details
+    func getDetails(movieId: Int) -> Single<MovieDetailModel> {
+        return Single<MovieDetailModel>.create(subscribe: { (single) -> Disposable in
+            
+            APIManager.shared.request(target: APIEndpoint.getDetails(movieId: movieId), successCompletion: { data in
+                
+                let decoder = JSONDecoder()
+                do {
+                    let movieDetail = try decoder.decode(MovieDetailModel.self, from: data)
+                    single(.success(movieDetail))
+                } catch {
+                    single(.error(error))
+                }
+                
+            }, errorCompletion: { error in
+                single(.error(error))
+            })
+            
+            return Disposables.create()
+        }).subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+    }
 }

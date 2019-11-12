@@ -8,7 +8,7 @@
 import Foundation
 
 struct PagingInfoModel {
-    let currentPage: Int
-    let totalPages: Int
-    let hasMoreData: Bool
+    let currentPage: Int?
+    let totalPages: Int?
+    let hasMoreData: Bool?
 }

@@ -1,20 +1,20 @@
 //
-//  MovieModel.swift
+//  ReviewModel.swift
 //  MyMovie
 //
-//  Created by Thy Nguyen on 11/5/19.
+//  Created by Thy Nguyen on 11/12/19.
 //
 
 import Foundation
 
-struct MovieResponseModel: Decodable {
+struct ReviewResponseModel: Decodable {
     let pagingInfo: PagingInfoModel?
-    let movies: [MovieModel]?
+    let results: [ReviewModel]?
     
     enum CodingKeys: String, CodingKey {
         case currentPage = "page"
         case totalPages = "total_pages"
-        case movies = "results"
+        case results
     }
     
     init(from decoder: Decoder) throws {
@@ -22,18 +22,11 @@ struct MovieResponseModel: Decodable {
         let currentPage = try container.decodeIfPresent(Int.self, forKey: .currentPage)
         let totalPages = try container.decodeIfPresent(Int.self, forKey: .totalPages)
         pagingInfo = PagingInfoModel(currentPage: currentPage, totalPages: totalPages, hasMoreData: (currentPage ?? 0) < (totalPages ?? 0))
-        movies = try container.decode([MovieModel].self, forKey: .movies)
+        results = try container.decode([ReviewModel].self, forKey: .results)
     }
 }
 
-struct MovieModel: Decodable {
-    let movieId: Int?
-    let posterPath: String?
-    let title: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case movieId = "id"
-        case posterPath = "poster_path"
-        case title = "title"
-    }
+struct ReviewModel: Decodable {
+    let author: String?
+    let content: String?
 }

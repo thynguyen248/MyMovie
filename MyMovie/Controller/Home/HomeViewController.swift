@@ -26,24 +26,18 @@ class HomeViewController: BaseViewController {
         loadData()
     }
     
-    private func binding(sectionViewModel: BehaviorRelay<HorizontalListViewModel?>, type: SectionType) {
+    private func binding(sectionViewModel: BehaviorRelay<HorizontalListViewModel?>, type: HomeSectionType) {
         
-        sectionViewModel.subscribe(onNext: { [weak self] _ in
-            guard let sectionViewModelValue = sectionViewModel.value else {
-                return
-            }
-            
-            // Reload section
+        sectionViewModel.subscribe(onNext: { [weak self] sectionVM in
             self?.tableView.reloadData()
             
+            guard let sectionVM = sectionVM else {
+                return
+            }
             // Load more
-            sectionViewModelValue.isLoadingMore.subscribe(onNext: { [weak self] loadingMoreType in
-                guard let loadingMoreType = loadingMoreType else {
-                    return
-                }
-                self?.viewModel.loadMovieList(type: loadingMoreType)
-                
-            }, onError: { [weak self] error in
+            sectionVM.isLoadingMore.subscribe(onNext: {
+                self?.viewModel.loadMovieList(type: sectionVM.sectionType)
+            }, onError: { error in
                 self?.showAlerWithMessage(error.localizedDescription)
             }).disposed(by: self?.disposeBag ?? DisposeBag())
             
@@ -87,18 +81,11 @@ class HomeViewController: BaseViewController {
     }
     
     private func setupNavigationBar() {
-        configDefaultTheme()
     }
     
     private func setupTableView() {
         tableView.register(HorizontalListTableViewCell.nib, forCellReuseIdentifier: HorizontalListTableViewCell.identifier)
         tableView.register(TitleHeaderView.nib, forHeaderFooterViewReuseIdentifier: TitleHeaderView.identifier)
-    }
-    
-    private func reloadSection(sectionType: SectionType) {
-        if let sectionIndex = viewModel.sections.firstIndex(where: { $0 == sectionType }) {
-            tableView.reloadSections(IndexSet([sectionIndex]), with: .none)
-        }
     }
     
     private func setupRefreshControl() {
@@ -107,10 +94,6 @@ class HomeViewController: BaseViewController {
     }
     
     @objc private func pullToRefresh() {
-        if isRefreshing.value {
-            return
-        }
-        isRefreshing.accept(true)
         reloadData()
     }
     
@@ -124,20 +107,23 @@ class HomeViewController: BaseViewController {
     }
     
     private func reloadData() {
-        if isLoading.value {
+        if isRefreshing.value {
             return
         }
-        isLoading.accept(true)
+        isRefreshing.accept(true)
         viewModel.reset()
         viewModel.loadData()
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == Segue.movieToMovieDetail.rawValue {
+            guard let movieId = sender as? Int, let detailVC = segue.destination as? MovieDetailViewController else {
+                return
+            }
+            detailVC.movieId = movieId
+        }
     }
-
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -184,6 +170,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.viewModel.accept(sectionVM)
+        cell.didSelectId = { [weak self] selectedId in
+            self?.performSegue(withIdentifier: Segue.movieToMovieDetail.rawValue, sender: selectedId)
+        }
         
         return cell
     }

@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 class HomeViewModel {
-    var sections: [SectionType] = [.Recommendation, .Category, .Popular, .TopRated, .Upcoming]
+    var sections: [HomeSectionType] = [.Recommendation, .Category, .Popular, .TopRated, .Upcoming]
     
     var recommendationSectionVM = BehaviorRelay<HorizontalListViewModel?>(value: nil)
     var categorySectionVM = BehaviorRelay<HorizontalListViewModel?>(value: nil)
@@ -31,7 +31,7 @@ class HomeViewModel {
         }).disposed(by: disposeBag)
     }
     
-    func getSectionViewModel(withType sectionType: SectionType) -> HorizontalListViewModel? {
+    func getSectionViewModel(withType sectionType: HomeSectionType) -> HorizontalListViewModel? {
         switch sectionType {
         case .Recommendation:
             return recommendationSectionVM.value
@@ -46,7 +46,7 @@ class HomeViewModel {
         }
     }
     
-    func loadMovieList(type: SectionType) {
+    func loadMovieList(type: HomeSectionType) {
         var page = 0
         var endpoint: APIEndpoint?
         switch type {
@@ -70,11 +70,11 @@ class HomeViewModel {
         
         APIManager.shared.getMovies(endPoint: endpoint!).subscribe(onSuccess: { [weak self] response in
             
-            guard !response.movies.isEmpty else {
+            guard let movies = response.movies, !movies.isEmpty else {
                 return
             }
             
-            let displayVMs = response.movies.map { ItemDisplayViewModel(title: $0.title, subTitle: nil, imageUrlPath: $0.imageUrlPath) }
+            let displayVMs = movies.map { ItemViewModel(itemId: $0.movieId, title: $0.title, subTitle: nil, posterPath: $0.posterPath) }
             var sectionVM = HorizontalListViewModel()
             sectionVM.sectionType = type
             
@@ -111,11 +111,11 @@ class HomeViewModel {
         APIManager.shared.getCategories()
             .subscribe(onSuccess: { [weak self] categoryResponse in
                 
-                guard !categoryResponse.response.isEmpty else {
+                guard let genres = categoryResponse.genres, !genres.isEmpty else {
                     return
                 }
                 
-                let displayVMs = categoryResponse.response.map { ItemDisplayViewModel(title: $0.name, subTitle: nil, imageUrlPath: nil) }
+                let displayVMs = genres.map { ItemViewModel(itemId: nil, title: $0.name, subTitle: nil, posterPath: nil) }
                 var sectionVM = HorizontalListViewModel()
                 sectionVM.sectionType = .Category
                 sectionVM.dataList = displayVMs
