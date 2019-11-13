@@ -62,7 +62,7 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
             playButton.isHidden = true
             moreButton.isHidden = true
             imageRatio.priority = UILayoutPriority(rawValue: 250)
-        case HomeSectionType.Popular, HomeSectionType.TopRated, HomeSectionType.Upcoming:
+        case HomeSectionType.Popular, HomeSectionType.TopRated, HomeSectionType.Upcoming, DetailSectionType.Recommendation:
             bottomView.isHidden = false
             bottomTitleLabel.isHidden = false
             subTitleLabel.isHidden = true
@@ -95,14 +95,6 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
             moreButton.isHidden = true
             imageRatio.priority = UILayoutPriority(rawValue: 250)
             imageCornerRadius = 12.0
-        case DetailSectionType.Recommendation:
-            bottomView.isHidden = false
-            bottomTitleLabel.isHidden = false
-            subTitleLabel.isHidden = true
-            centerTitleLabel.isHidden = true
-            playButton.isHidden = true
-            moreButton.isHidden = true
-            imageRatio.priority = UILayoutPriority(rawValue: 999)
         default:
             break
         }

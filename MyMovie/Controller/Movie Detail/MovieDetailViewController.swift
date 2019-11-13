@@ -88,6 +88,7 @@ class MovieDetailViewController: BaseViewController {
         var frame = CGRect.zero
         frame.size.height = .leastNormalMagnitude
         tableView.tableHeaderView = UIView(frame: frame)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30.0, right: 0)
     }
     
     private func setupRefreshControl() {
@@ -169,7 +170,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
         case .Comment:
             return (viewModel.commentSectionVM.value ?? []).isEmpty ? .leastNormalMagnitude : 129.0
         case .Recommendation:
-            return (viewModel.recommendationSectionVM.value?.dataList ?? []).isEmpty ? .leastNormalMagnitude : sectionType.itemHeight + 45.0
+            return (viewModel.recommendationSectionVM.value?.dataList ?? []).isEmpty ? .leastNormalMagnitude : sectionType.itemHeight + 30.0
         }
     }
     

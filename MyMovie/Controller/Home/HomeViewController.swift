@@ -87,6 +87,7 @@ class HomeViewController: BaseViewController {
         var frame = CGRect.zero
         frame.size.height = .leastNormalMagnitude
         tableView.tableHeaderView = UIView(frame: frame)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30.0, right: 0)
     }
     
     private func setupRefreshControl() {
