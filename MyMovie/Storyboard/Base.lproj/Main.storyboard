@@ -54,12 +54,12 @@
         <!--Movie Detail View Controller-->
         <scene sceneID="pwJ-i9-Mia">
             <objects>
-                <viewController id="h7w-qi-HOZ" customClass="MovieDetailViewController" customModule="MyMovie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetailViewController" id="h7w-qi-HOZ" customClass="MovieDetailViewController" customModule="MyMovie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2bG-oF-odE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xde-oX-Wq5">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Xde-oX-Wq5">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
@@ -93,11 +93,22 @@
                     <navigationItem key="navigationItem" id="j8p-rd-TyI"/>
                     <connections>
                         <outlet property="tableView" destination="Xde-oX-Wq5" id="pGE-6W-gyc"/>
+                        <segue destination="zWe-QY-iNJ" kind="show" identifier="movieDetailToMovieDetail" id="FXq-YA-Y6e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LTz-J9-lB9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1959" y="102"/>
+        </scene>
+        <!--MovieDetailViewController-->
+        <scene sceneID="q3C-Cr-QIO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="MovieDetailViewController" id="zWe-QY-iNJ" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="1Uk-IU-hKI"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0na-Zw-LY8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2677" y="102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xbt-nR-F5p">

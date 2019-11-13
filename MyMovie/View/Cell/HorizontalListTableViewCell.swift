@@ -15,7 +15,7 @@ class HorizontalListTableViewCell: UITableViewCell, ReusableView {
     let viewModel = BehaviorRelay<HorizontalListViewModel?>(value: nil)
     let disposeBag = DisposeBag()
     
-    var didSelectId: ((_ selectedId: Int) -> ())?
+    var didSelectId: ((_ selectedId: Any) -> ())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,10 +83,10 @@ extension HorizontalListTableViewCell: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let type = viewModel.value?.sectionType, type != .Category, let movieId = viewModel.value!.dataList[indexPath.item].itemId else {
+        guard let itemId = viewModel.value!.dataList[indexPath.item].itemId else {
             return
         }
-        didSelectId?(movieId)
+        didSelectId?(itemId)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

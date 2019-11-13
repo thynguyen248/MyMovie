@@ -35,7 +35,6 @@ extension APIEndpoint: TargetType {
             return "/movie/upcoming"
         case .getDetails(let movieId):
             return "/movie/\(movieId)"
-            
         }
     }
     

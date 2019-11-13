@@ -8,15 +8,15 @@
 import UIKit
 
 extension BaseViewController {
-    func addLeftBarButtonWithImage(_ buttonImage: UIImage) {
-        let leftButton = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(toggleLeft))
+    func addLeftBarButton(withImage image: UIImage) {
+        let leftButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleLeft))
         navigationItem.leftBarButtonItem = leftButton
     }
     
     @objc func toggleLeft() {}
     
-    func addRightBarButtonWithImage(_ buttonImage: UIImage) {
-        let rightButton = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(toggleRight))
+    func addRightBarButton(withImage image: UIImage) {
+        let rightButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleRight))
         navigationItem.rightBarButtonItem = rightButton
     }
     

@@ -8,6 +8,7 @@
 import Foundation
 
 struct MovieDetailModel: Decodable {
+    let movieId: Int?
     let posterPath: String?
     let backDropPath: String?
     let title: String?
@@ -21,6 +22,7 @@ struct MovieDetailModel: Decodable {
     let recommendations: MovieResponseModel?
     
     enum CodingKeys: String, CodingKey {
+        case movieId = "id"
         case posterPath = "poster_path"
         case backDropPath = "backdrop_path"
         case title
@@ -32,19 +34,5 @@ struct MovieDetailModel: Decodable {
         case videos
         case reviews
         case recommendations
-    }
-    
-    var posterUrl: URL? {
-        guard let posterPath = posterPath else {
-            return nil
-        }
-        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
-    }
-    
-    var backDropUrl: URL? {
-        guard let backDropPath = backDropPath else {
-            return nil
-        }
-        return URL(string: "https://image.tmdb.org/t/p/w500\(backDropPath)")
     }
 }

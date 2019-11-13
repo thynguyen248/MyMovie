@@ -31,39 +31,40 @@ class HomeViewModel {
         }).disposed(by: disposeBag)
     }
     
-    func getSectionViewModel(withType sectionType: HomeSectionType) -> HorizontalListViewModel? {
+    func getSectionViewModel(withType sectionType: SectionType) -> HorizontalListViewModel? {
         switch sectionType {
-        case .Recommendation:
+        case HomeSectionType.Recommendation:
             return recommendationSectionVM.value
-        case .Category:
+        case HomeSectionType.Category:
             return categorySectionVM.value
-        case .Popular:
+        case HomeSectionType.Popular:
             return popularSectionVM.value
-        case .TopRated:
+        case HomeSectionType.TopRated:
             return topRatedSectionVM.value
-        case .Upcoming:
+        case HomeSectionType.Upcoming:
             return upcomingSectionVM.value
+        default:
+            return nil
         }
     }
     
-    func loadMovieList(type: HomeSectionType) {
-        var page = 0
+    func loadMovieList(type: SectionType, movieId: Int? = nil, currentPage: Int? = nil) {
         var endpoint: APIEndpoint?
+        
+        let targetPagingInfo = getSectionViewModel(withType: type)?.pagingInfo
+        let targetPage = (currentPage ?? targetPagingInfo?.currentPage ?? 0) + 1
+        
         switch type {
-        case .Recommendation:
-            page = (recommendationSectionVM.value?.pagingInfo?.currentPage ?? 0) + 1
+        case HomeSectionType.Recommendation:
             // Hard code
-            let movieId = 278
-            endpoint = APIEndpoint.getRecommendations(movieId: movieId, page: page)
-        case .Popular:
-            page = (popularSectionVM.value?.pagingInfo?.currentPage ?? 0) + 1
-            endpoint = APIEndpoint.getPopular(page: page)
-        case .TopRated:
-            page = (topRatedSectionVM.value?.pagingInfo?.currentPage ?? 0) + 1
-            endpoint = APIEndpoint.getTopRated(page: page)
-        case .Upcoming:
-            page = (upcomingSectionVM.value?.pagingInfo?.currentPage ?? 0) + 1
-            endpoint = APIEndpoint.getUpcoming(page: page)
+            let targetId = movieId ?? 278
+            endpoint = APIEndpoint.getRecommendations(movieId: targetId, page: targetPage)
+        case HomeSectionType.Popular:
+            endpoint = APIEndpoint.getPopular(page: targetPage)
+        case HomeSectionType.TopRated:
+            endpoint = APIEndpoint.getTopRated(page: targetPage)
+        case HomeSectionType.Upcoming:
+            endpoint = APIEndpoint.getUpcoming(page: targetPage)
         default:
             break
         }
@@ -79,22 +80,22 @@ class HomeViewModel {
             sectionVM.sectionType = type
             
             switch type {
-            case .Recommendation:
+            case HomeSectionType.Recommendation:
                 sectionVM.dataList = (self?.recommendationSectionVM.value?.dataList ?? []) + displayVMs
                 sectionVM.pagingInfo = response.pagingInfo
                 self?.recommendationSectionVM.accept(sectionVM)
                 
-            case .Popular:
+            case HomeSectionType.Popular:
                 sectionVM.dataList = (self?.popularSectionVM.value?.dataList ?? []) + displayVMs
                 sectionVM.pagingInfo = response.pagingInfo
                 self?.popularSectionVM.accept(sectionVM)
                 
-            case .TopRated:
+            case HomeSectionType.TopRated:
                 sectionVM.dataList = (self?.topRatedSectionVM.value?.dataList ?? []) + displayVMs
                 sectionVM.pagingInfo = response.pagingInfo
                 self?.topRatedSectionVM.accept(sectionVM)
                 
-            case .Upcoming:
+            case HomeSectionType.Upcoming:
                 sectionVM.dataList = (self?.upcomingSectionVM.value?.dataList ?? []) + displayVMs
                 sectionVM.pagingInfo = response.pagingInfo
                 self?.upcomingSectionVM.accept(sectionVM)
@@ -102,6 +103,13 @@ class HomeViewModel {
             default:
                 break
             }
+            
+            sectionVM.isLoadingMore.subscribe(onNext: {
+                self?.loadMovieList(type: type)
+            }, onError: { error in
+                self?.errorSubject.onNext(error)
+            }).disposed(by: self?.disposeBag ?? DisposeBag())
+            
             }, onError: { [weak self] error in
                 self?.errorSubject.onNext(error)
         }).disposed(by: disposeBag)
@@ -117,7 +125,7 @@ class HomeViewModel {
                 
                 let displayVMs = genres.map { ItemViewModel(itemId: nil, title: $0.name, subTitle: nil, posterPath: nil) }
                 var sectionVM = HorizontalListViewModel()
-                sectionVM.sectionType = .Category
+                sectionVM.sectionType = HomeSectionType.Category
                 sectionVM.dataList = displayVMs
                 self?.categorySectionVM.accept(sectionVM)
                 
@@ -127,18 +135,10 @@ class HomeViewModel {
     }
     
     func loadData() {
-        loadMovieList(type: .Recommendation)
+        loadMovieList(type: HomeSectionType.Recommendation)
         loadCategoryList()
-        loadMovieList(type: .Popular)
-        loadMovieList(type: .TopRated)
-        loadMovieList(type: .Upcoming)
-    }
-    
-    func reset() {
-        recommendationSectionVM.accept(nil)
-        categorySectionVM.accept(nil)
-        popularSectionVM.accept(nil)
-        topRatedSectionVM.accept(nil)
-        upcomingSectionVM.accept(nil)
+        loadMovieList(type: HomeSectionType.Popular)
+        loadMovieList(type: HomeSectionType.TopRated)
+        loadMovieList(type: HomeSectionType.Upcoming)
     }
 }

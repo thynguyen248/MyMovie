@@ -5,12 +5,11 @@
 //  Created by Thy Nguyen on 11/5/19.
 //
 
-import UIKit
 import RxSwift
 import RxCocoa
 
 class HomeViewController: BaseViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
@@ -18,31 +17,18 @@ class HomeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
+        // Do any additional setup after loading the view.
         setupUI()
         setupViewModel()
         loadData()
     }
     
-    private func binding(sectionViewModel: BehaviorRelay<HorizontalListViewModel?>, type: HomeSectionType) {
-        
+    private func binding(sectionViewModel: BehaviorRelay<HorizontalListViewModel?>) {
         sectionViewModel.subscribe(onNext: { [weak self] sectionVM in
             self?.tableView.reloadData()
-            
-            guard let sectionVM = sectionVM else {
-                return
-            }
-            // Load more
-            sectionVM.isLoadingMore.subscribe(onNext: {
-                self?.viewModel.loadMovieList(type: sectionVM.sectionType)
-            }, onError: { error in
+            }, onError: { [weak self] error in
                 self?.showAlerWithMessage(error.localizedDescription)
-            }).disposed(by: self?.disposeBag ?? DisposeBag())
-            
-        }, onError: { [weak self] error in
-            self?.showAlerWithMessage(error.localizedDescription)
         }).disposed(by: disposeBag)
     }
     
@@ -52,19 +38,19 @@ class HomeViewController: BaseViewController {
         viewModel.isLoading.bind(to: isRefreshing).disposed(by: disposeBag)
         
         // Recommendation
-        binding(sectionViewModel: viewModel.recommendationSectionVM, type: .Recommendation)
+        binding(sectionViewModel: viewModel.recommendationSectionVM)
         
         // Category
-        binding(sectionViewModel: viewModel.categorySectionVM, type: .Category)
+        binding(sectionViewModel: viewModel.categorySectionVM)
         
         // Popular
-        binding(sectionViewModel: viewModel.popularSectionVM, type: .Popular)
+        binding(sectionViewModel: viewModel.popularSectionVM)
         
         // Top rated
-        binding(sectionViewModel: viewModel.topRatedSectionVM, type: .TopRated)
+        binding(sectionViewModel: viewModel.topRatedSectionVM)
         
         // Upcoming
-        binding(sectionViewModel: viewModel.upcomingSectionVM, type: .Upcoming)
+        binding(sectionViewModel: viewModel.upcomingSectionVM)
         
         // Handle error
         viewModel.errorSubject.asDriver(onErrorJustReturn: DefaultError.unknown).drive(onNext: { [weak self] error in
@@ -81,11 +67,26 @@ class HomeViewController: BaseViewController {
     }
     
     private func setupNavigationBar() {
+        let logo = UIImage(named: "logo")
+        let imageView = UIImageView(image:logo)
+        navigationItem.titleView = imageView
+        
+        addLeftBarButton(withImage: UIImage(named: "default-user")!)
+        addRightBarButton(withImage: UIImage(named: "search-icon")!)
+        
+        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        navigationController?.navigationBar.layer.shadowRadius = 15.0
+        navigationController?.navigationBar.layer.shadowOpacity = 0.3
     }
     
     private func setupTableView() {
         tableView.register(HorizontalListTableViewCell.nib, forCellReuseIdentifier: HorizontalListTableViewCell.identifier)
         tableView.register(TitleHeaderView.nib, forHeaderFooterViewReuseIdentifier: TitleHeaderView.identifier)
+        
+        var frame = CGRect.zero
+        frame.size.height = .leastNormalMagnitude
+        tableView.tableHeaderView = UIView(frame: frame)
     }
     
     private func setupRefreshControl() {
@@ -111,7 +112,6 @@ class HomeViewController: BaseViewController {
             return
         }
         isRefreshing.accept(true)
-        viewModel.reset()
         viewModel.loadData()
     }
     
@@ -144,9 +144,13 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let sectionType = viewModel.sections[section]
         guard !(viewModel.getSectionViewModel(withType: sectionType)?.dataList ?? []).isEmpty else {
-            return 0
+            return .leastNormalMagnitude
         }
         return 75.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -155,7 +159,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             return nil
         }
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TitleHeaderView.identifier) as! TitleHeaderView
-        headerView.titleLabel.text = sectionType.description
+        headerView.titleLabel.text = sectionType.description.uppercased()
         return headerView
     }
     

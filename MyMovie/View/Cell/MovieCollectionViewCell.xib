@@ -20,6 +20,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Uj-pF-Ejf">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                         <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTs-oG-nfV" customClass="YTPlayerView">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="225"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1RM-iF-nUe">
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                                 <subviews>
@@ -37,16 +41,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="65"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="baT-pS-IGK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="130" height="52.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="130" height="31"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Movie name name name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMT-3Z-CIC">
-                                                                <rect key="frame" x="0.0" y="0.0" width="130" height="36"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Movie name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMT-3Z-CIC">
+                                                                <rect key="frame" x="0.0" y="0.0" width="130" height="14.5"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                                 <color key="textColor" red="0.24313725490196078" green="0.29019607843137252" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1V-vL-st7">
-                                                                <rect key="frame" x="0.0" y="38" width="130" height="14.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1V-vL-st7">
+                                                                <rect key="frame" x="0.0" y="16.5" width="130" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -82,6 +86,9 @@
                                     <constraint firstAttribute="height" constant="40" id="R4C-nm-ras"/>
                                 </constraints>
                                 <state key="normal" image="play-white"/>
+                                <connections>
+                                    <action selector="didTouchPlayButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="OOd-wH-TU3"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xf-K1-7lO">
                                 <rect key="frame" x="54" y="103" width="42.5" height="19.5"/>
@@ -92,10 +99,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="tTs-oG-nfV" firstAttribute="top" secondItem="bZS-T0-4Wp" secondAttribute="top" id="4YQ-Ps-BaE"/>
+                            <constraint firstItem="tTs-oG-nfV" firstAttribute="leading" secondItem="bZS-T0-4Wp" secondAttribute="leading" id="8e1-Bf-cW8"/>
                             <constraint firstItem="1RM-iF-nUe" firstAttribute="leading" secondItem="3Uj-pF-Ejf" secondAttribute="leading" id="JeS-LP-Ksf"/>
+                            <constraint firstItem="tTs-oG-nfV" firstAttribute="bottom" secondItem="bZS-T0-4Wp" secondAttribute="bottom" id="VeH-al-V7t"/>
                             <constraint firstItem="Lr7-Lk-7lb" firstAttribute="centerX" secondItem="bZS-T0-4Wp" secondAttribute="centerX" id="Y0w-CF-KKZ"/>
                             <constraint firstItem="Lr7-Lk-7lb" firstAttribute="centerY" secondItem="bZS-T0-4Wp" secondAttribute="centerY" id="bhX-0o-KC6"/>
                             <constraint firstItem="7xf-K1-7lO" firstAttribute="centerX" secondItem="bZS-T0-4Wp" secondAttribute="centerX" id="fsP-P1-TFh"/>
+                            <constraint firstItem="tTs-oG-nfV" firstAttribute="trailing" secondItem="bZS-T0-4Wp" secondAttribute="trailing" id="g0r-RH-sLN"/>
                             <constraint firstAttribute="bottom" secondItem="1RM-iF-nUe" secondAttribute="bottom" id="oKJ-z9-tbP"/>
                             <constraint firstAttribute="trailing" secondItem="1RM-iF-nUe" secondAttribute="trailing" id="pYX-jf-X4S"/>
                             <constraint firstItem="7xf-K1-7lO" firstAttribute="centerY" secondItem="bZS-T0-4Wp" secondAttribute="centerY" id="tqc-UV-kCv"/>
@@ -119,6 +130,7 @@
                 <outlet property="imageRatio" destination="edv-iD-rzS" id="mju-Ki-BgT"/>
                 <outlet property="moreButton" destination="10v-J6-RHC" id="qL0-eo-IIp"/>
                 <outlet property="playButton" destination="Lr7-Lk-7lb" id="zDr-dQ-iXi"/>
+                <outlet property="playerView" destination="tTs-oG-nfV" id="Gwc-kk-8n6"/>
                 <outlet property="posterImageView" destination="bZS-T0-4Wp" id="Cqh-ll-gYK"/>
                 <outlet property="subTitleLabel" destination="n1V-vL-st7" id="uU8-8Q-mtc"/>
             </connections>

@@ -14,6 +14,8 @@ class MediaTableViewCell: UITableViewCell, ReusableView {
 
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var playerView: YTPlayerView!
+    @IBOutlet weak var videoThumnailImageView: UIImageView!
+    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var starValueLabel: UILabel!
     @IBOutlet weak var starView: CosmosView!
     @IBOutlet weak var datetimeLabel: UILabel!
@@ -26,6 +28,7 @@ class MediaTableViewCell: UITableViewCell, ReusableView {
         // Initialization code
         
         posterImageView.layer.cornerRadius = 6.0
+        starView.settings.fillMode = .precise
         setupCollectionView()
     }
     
@@ -41,13 +44,24 @@ class MediaTableViewCell: UITableViewCell, ReusableView {
     
     func config(withMovieDetail detail: MovieDetailModel) {
         movieDetail = detail
-        posterImageView.kf.setImage(with: detail.posterUrl)
-        if let videos = detail.videos?.results, let key = videos.first?.key {
-            playerView.load(withVideoId: key)
+        if let posterPath = detail.posterPath {
+            posterImageView.kf.setImage(with: posterPath.posterUrl)
         }
-        starValueLabel.text = "\(detail.rating ?? 0.0)"
+        if let videos = detail.videos?.results, let key = videos.first?.key {
+            videoThumnailImageView.kf.setImage(with: key.videoThumbnailUrl)
+            playerView.load(withVideoId: key)
+            playButton.isHidden = false
+        } else {
+            if let backDropPath = detail.backDropPath {
+                videoThumnailImageView.kf.setImage(with: backDropPath.posterUrl)
+            }
+            playButton.isHidden = true
+        }
+        starValueLabel.text = "\(String(format: "%.1f", (detail.rating ?? 0.0) / 2.0))"
         starView.rating = (detail.rating ?? 0.0) / 2.0
-        datetimeLabel.text = detail.releaseDate
+        if let releaseDate = detail.releaseDate {
+            datetimeLabel.text = releaseDate.getShortDateFormat()
+        }
         genreCollectionView.reloadData()
     }
     
@@ -59,7 +73,7 @@ class MediaTableViewCell: UITableViewCell, ReusableView {
 extension MediaTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (movieDetail.genres ?? []).count
+        return (movieDetail?.genres ?? []).count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

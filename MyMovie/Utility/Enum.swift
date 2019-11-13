@@ -7,7 +7,13 @@
 
 import UIKit
 
-enum HomeSectionType: Int {
+protocol SectionType {
+    var description: String { get }
+    var itemWidth: CGFloat { get }
+    var itemHeight: CGFloat { get }
+}
+
+enum HomeSectionType: Int, SectionType {
     case Recommendation
     case Category
     case Popular
@@ -52,9 +58,9 @@ enum HomeSectionType: Int {
     }
 }
 
-enum DetailSectionType: Int {
+enum DetailSectionType: Int, SectionType {
     case Media
-    case Content
+    case Overview
     case Favorite
     case Rating
     case Cast
@@ -66,7 +72,7 @@ enum DetailSectionType: Int {
         switch self {
         case .Media:
             return ""
-        case .Content:
+        case .Overview:
             return ""
         case .Favorite:
             return ""
@@ -87,16 +93,16 @@ enum DetailSectionType: Int {
         switch self {
         case .Media:
             return 0
-        case .Content:
+        case .Overview:
             return 0
         case .Favorite:
             return 0
         case .Rating:
             return 185
         case .Cast:
-            return 198
+            return 144
         case .Video:
-            return 180
+            return 120
         case .Comment:
             return 0
         case .Recommendation:
@@ -108,7 +114,7 @@ enum DetailSectionType: Int {
         switch self {
         case .Media:
             return 0
-        case .Content:
+        case .Overview:
             return 0
         case .Favorite:
             return 0
@@ -128,4 +134,5 @@ enum DetailSectionType: Int {
 
 enum Segue: String {
     case movieToMovieDetail = "movieToMovieDetail"
+    case movieDetailToMovieDetail = "movieDetailToMovieDetail"
 }

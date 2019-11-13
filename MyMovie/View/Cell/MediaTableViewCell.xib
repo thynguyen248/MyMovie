@@ -24,7 +24,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHZ-pB-38g">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iy4-ba-jZ6">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHZ-pB-38g">
                                 <rect key="frame" x="133" y="63" width="54" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HHZ-pB-38g" secondAttribute="height" multiplier="1:1" id="80W-4L-Twb"/>
@@ -39,11 +42,15 @@
                         <constraints>
                             <constraint firstItem="W4g-RK-Rfw" firstAttribute="leading" secondItem="wPG-Ic-ldk" secondAttribute="leading" id="5Ij-s1-diI"/>
                             <constraint firstAttribute="trailing" secondItem="W4g-RK-Rfw" secondAttribute="trailing" id="5fQ-5K-9RR"/>
+                            <constraint firstItem="iy4-ba-jZ6" firstAttribute="top" secondItem="W4g-RK-Rfw" secondAttribute="top" id="9mw-4z-jpm"/>
+                            <constraint firstItem="iy4-ba-jZ6" firstAttribute="trailing" secondItem="W4g-RK-Rfw" secondAttribute="trailing" id="H9q-LL-jJn"/>
                             <constraint firstAttribute="width" secondItem="wPG-Ic-ldk" secondAttribute="height" multiplier="16:9" id="Lpi-Ys-j0l"/>
+                            <constraint firstItem="iy4-ba-jZ6" firstAttribute="bottom" secondItem="W4g-RK-Rfw" secondAttribute="bottom" id="Qs9-aF-EKk"/>
                             <constraint firstItem="W4g-RK-Rfw" firstAttribute="top" secondItem="wPG-Ic-ldk" secondAttribute="top" id="SOD-h4-X3b"/>
                             <constraint firstItem="HHZ-pB-38g" firstAttribute="centerX" secondItem="wPG-Ic-ldk" secondAttribute="centerX" id="UiC-No-9Mw"/>
                             <constraint firstItem="HHZ-pB-38g" firstAttribute="centerY" secondItem="wPG-Ic-ldk" secondAttribute="centerY" id="VGr-n7-2qA"/>
                             <constraint firstAttribute="bottom" secondItem="W4g-RK-Rfw" secondAttribute="bottom" id="qLi-jS-awG"/>
+                            <constraint firstItem="iy4-ba-jZ6" firstAttribute="leading" secondItem="W4g-RK-Rfw" secondAttribute="leading" id="rRx-Lt-RUp"/>
                         </constraints>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TGT-90-JAL">
@@ -54,7 +61,7 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bzI-qd-ixW">
-                        <rect key="frame" x="146" y="186" width="164" height="108"/>
+                        <rect key="frame" x="146" y="190" width="164" height="108"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bdz-AT-O0x">
                                 <rect key="frame" x="0.0" y="0.0" width="164" height="108"/>
@@ -68,7 +75,7 @@
                                                 <color key="textColor" red="0.94509803921568625" green="0.792156862745098" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-em-e97" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-em-e97" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="57.5" y="0.0" width="106" height="50"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <userDefinedRuntimeAttributes>
@@ -96,7 +103,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="9RC-eB-snA"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fun-Ei-9an">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fun-Ei-9an">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -126,7 +133,7 @@
                     <constraint firstAttribute="trailing" secondItem="8R1-iR-IT7" secondAttribute="trailing" constant="10" id="Pfn-Tl-ZVO"/>
                     <constraint firstItem="bzI-qd-ixW" firstAttribute="leading" secondItem="TGT-90-JAL" secondAttribute="trailing" constant="10" id="Qyb-ic-VO8"/>
                     <constraint firstItem="wPG-Ic-ldk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="cSQ-tM-Lp0"/>
-                    <constraint firstItem="bzI-qd-ixW" firstAttribute="top" secondItem="wPG-Ic-ldk" secondAttribute="bottom" constant="6" id="i9W-Mu-SrZ"/>
+                    <constraint firstItem="bzI-qd-ixW" firstAttribute="top" secondItem="wPG-Ic-ldk" secondAttribute="bottom" constant="10" id="i9W-Mu-SrZ"/>
                     <constraint firstItem="wPG-Ic-ldk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="n2J-rS-sTt"/>
                 </constraints>
             </tableViewCellContentView>
@@ -134,10 +141,12 @@
             <connections>
                 <outlet property="datetimeLabel" destination="8KG-LN-rNO" id="UzB-c5-g9s"/>
                 <outlet property="genreCollectionView" destination="8R1-iR-IT7" id="5iZ-j5-pGq"/>
+                <outlet property="playButton" destination="HHZ-pB-38g" id="LRZ-fS-6Ep"/>
                 <outlet property="playerView" destination="W4g-RK-Rfw" id="V7k-Fj-LXH"/>
                 <outlet property="posterImageView" destination="TGT-90-JAL" id="RyO-T7-Bjw"/>
                 <outlet property="starValueLabel" destination="35a-tZ-kv5" id="tU5-Gp-aUO"/>
                 <outlet property="starView" destination="BNY-em-e97" id="GQ5-ny-dqE"/>
+                <outlet property="videoThumnailImageView" destination="iy4-ba-jZ6" id="gbT-FP-XAG"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="127.90178571428571"/>
         </tableViewCell>
