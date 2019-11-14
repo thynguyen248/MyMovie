@@ -167,7 +167,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let sectionType = viewModel.sections.value[section]
         switch sectionType {
-        case .Media, .Overview, .Favorite, .Rating:
+        case .Media, .Overview, .Favorite:
             return .leastNormalMagnitude
         default:
             return 48.0
@@ -181,7 +181,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionType = viewModel.sections.value[section]
         switch sectionType {
-        case .Media, .Overview, .Favorite, .Rating:
+        case .Media, .Overview, .Favorite:
             return nil
         default:
             break
