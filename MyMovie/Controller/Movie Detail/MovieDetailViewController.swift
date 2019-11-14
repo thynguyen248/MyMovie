@@ -12,6 +12,7 @@ import AVKit
 class MovieDetailViewController: BaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var movieId: Int!
     private let viewModel = DetailViewModel()
@@ -70,6 +71,7 @@ class MovieDetailViewController: BaseViewController {
         setupNavigationBar()
         setupTableView()
         setupRefreshControl()
+        bindLoadingIndicator(loadingIndicator)
     }
     
     private func setupNavigationBar() {
@@ -270,6 +272,9 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
             
             cell.viewModel.accept(sectionVM)
             cell.didSelectId = { [weak self] selectedId in
+                guard let selectedId = selectedId as? Int else {
+                    return
+                }
                 self?.performSegue(withIdentifier: Segue.movieDetailToMovieDetail.rawValue, sender: selectedId)
             }
             

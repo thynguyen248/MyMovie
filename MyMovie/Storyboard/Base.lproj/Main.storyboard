@@ -78,13 +78,19 @@
                                     <action selector="didTouchBack:" destination="h7w-qi-HOZ" eventType="touchUpInside" id="1o4-OY-AZP"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hGy-u9-Dqo">
+                                <rect key="frame" x="188.5" y="456.5" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="hGy-u9-Dqo" firstAttribute="centerY" secondItem="mAB-q7-G7a" secondAttribute="centerY" id="6xN-hb-fIR"/>
                             <constraint firstItem="Q8E-jR-OFo" firstAttribute="top" secondItem="2bG-oF-odE" secondAttribute="top" constant="37" id="8u9-k1-SNN"/>
                             <constraint firstItem="Xde-oX-Wq5" firstAttribute="top" secondItem="mAB-q7-G7a" secondAttribute="top" id="EsE-sw-FuB"/>
                             <constraint firstItem="mAB-q7-G7a" firstAttribute="trailing" secondItem="Xde-oX-Wq5" secondAttribute="trailing" id="HLA-R4-MIw"/>
                             <constraint firstItem="Q8E-jR-OFo" firstAttribute="leading" secondItem="mAB-q7-G7a" secondAttribute="leading" constant="16" id="XLC-vX-NSw"/>
+                            <constraint firstItem="hGy-u9-Dqo" firstAttribute="centerX" secondItem="mAB-q7-G7a" secondAttribute="centerX" id="aLS-Zc-csv"/>
                             <constraint firstItem="Xde-oX-Wq5" firstAttribute="leading" secondItem="mAB-q7-G7a" secondAttribute="leading" id="byX-Y1-WFL"/>
                             <constraint firstItem="mAB-q7-G7a" firstAttribute="bottom" secondItem="Xde-oX-Wq5" secondAttribute="bottom" id="n3P-o6-sht"/>
                         </constraints>
@@ -92,6 +98,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="j8p-rd-TyI"/>
                     <connections>
+                        <outlet property="loadingIndicator" destination="hGy-u9-Dqo" id="Ojx-6Z-omR"/>
                         <outlet property="tableView" destination="Xde-oX-Wq5" id="pGE-6W-gyc"/>
                         <segue destination="zWe-QY-iNJ" kind="show" identifier="movieDetailToMovieDetail" id="FXq-YA-Y6e"/>
                     </connections>

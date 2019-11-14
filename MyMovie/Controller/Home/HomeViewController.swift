@@ -176,6 +176,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.viewModel.accept(sectionVM)
         cell.didSelectId = { [weak self] selectedId in
+            guard let selectedId = selectedId as? Int else {
+                return
+            }
             self?.performSegue(withIdentifier: Segue.movieToMovieDetail.rawValue, sender: selectedId)
         }
         
