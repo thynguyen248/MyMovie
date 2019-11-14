@@ -22,7 +22,7 @@ struct ReviewResponseModel: Decodable {
         let currentPage = try container.decodeIfPresent(Int.self, forKey: .currentPage)
         let totalPages = try container.decodeIfPresent(Int.self, forKey: .totalPages)
         pagingInfo = PagingInfoModel(currentPage: currentPage, totalPages: totalPages, hasMoreData: (currentPage ?? 0) < (totalPages ?? 0))
-        results = try container.decode([ReviewModel].self, forKey: .results)
+        results = try container.decode([Safe<ReviewModel>].self, forKey: .results).compactMap { $0.value }
     }
 }
 

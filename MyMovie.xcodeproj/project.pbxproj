@@ -367,11 +367,11 @@
 				44EA6BB92371BA9E003914AF /* MovieModel.swift */,
 				44EA6BBD2371EDD9003914AF /* CategoryModel.swift */,
 				449846E12372FC52001D8034 /* PagingInfoModel.swift */,
-				44EA6BBB2371BC01003914AF /* SafeArrayDecoding.swift */,
 				762CD82F2378FEF700685234 /* MovieDetailModel.swift */,
 				762CD83E2379E03E00685234 /* CreditModel.swift */,
 				762CD8402379E2FC00685234 /* VideoModel.swift */,
 				762CD8422379E3C700685234 /* ReviewModel.swift */,
+				44EA6BBB2371BC01003914AF /* SafeArrayDecoding.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

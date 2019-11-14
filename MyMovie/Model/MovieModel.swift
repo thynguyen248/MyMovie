@@ -22,7 +22,7 @@ struct MovieResponseModel: Decodable {
         let currentPage = try container.decodeIfPresent(Int.self, forKey: .currentPage)
         let totalPages = try container.decodeIfPresent(Int.self, forKey: .totalPages)
         pagingInfo = PagingInfoModel(currentPage: currentPage, totalPages: totalPages, hasMoreData: (currentPage ?? 0) < (totalPages ?? 0))
-        movies = try container.decode([MovieModel].self, forKey: .movies)
+        movies = try container.decodeIfPresent([Safe<MovieModel>].self, forKey: .movies)?.compactMap { $0.value }
     }
 }
 

@@ -17,8 +17,8 @@ struct CreditResponseModel: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let cast = try container.decodeIfPresent([CastModel].self, forKey: .cast)?.compactMap { CreditModel(title: $0.name, subTitle: $0.character, profileUrlPath: $0.profileUrlPath) }
-        let crew = try container.decodeIfPresent([CrewModel].self, forKey: .crew)?.compactMap { CreditModel(title: $0.name, subTitle: $0.job, profileUrlPath: $0.profileUrlPath) }
+        let cast = try container.decodeIfPresent([Safe<CastModel>].self, forKey: .cast)?.compactMap { CreditModel(title: $0.value?.name, subTitle: $0.value?.character, profileUrlPath: $0.value?.profileUrlPath) }
+        let crew = try container.decodeIfPresent([Safe<CrewModel>].self, forKey: .crew)?.compactMap { CreditModel(title: $0.value?.name, subTitle: $0.value?.job, profileUrlPath: $0.value?.profileUrlPath) }
         credits = (cast ?? []) + (crew ?? [])
     }
 }
