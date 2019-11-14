@@ -5,8 +5,7 @@
 //  Created by Thy Nguyen on 11/12/19.
 //
 
-import RxSwift
-import RxCocoa
+import UIKit
 
 class OverviewTableViewCell: UITableViewCell, ReusableView {
 
@@ -15,16 +14,11 @@ class OverviewTableViewCell: UITableViewCell, ReusableView {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var overviewHeightConstraint: NSLayoutConstraint!
     
-    let viewModel = BehaviorRelay<OverviewViewModel?>(value: nil)
-    let disposeBag = DisposeBag()
+    var viewModel: OverviewViewModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        viewModel.asDriver().drive(onNext: { [weak self] _ in
-            self?.configUI()
-        }).disposed(by: disposeBag)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,8 +27,9 @@ class OverviewTableViewCell: UITableViewCell, ReusableView {
         // Configure the view for the selected state
     }
     
-    private func configUI() {
-        guard let vm = viewModel.value else {
+    func config(withOverviewVM viewModel: OverviewViewModel?) {
+        self.viewModel = viewModel
+        guard let vm = viewModel else {
             return
         }
         titleLabel.attributedText = vm.titleAttributedString
@@ -49,7 +44,7 @@ class OverviewTableViewCell: UITableViewCell, ReusableView {
     }
     
     @IBAction func didTouchActionButton(_ sender: AnyObject) {
-        let currentStatus = viewModel.value?.showFullText.value ?? false
-        viewModel.value?.showFullText.accept(!currentStatus)
+        let currentStatus = viewModel?.showFullText.value ?? false
+        viewModel?.showFullText.accept(!currentStatus)
     }
 }

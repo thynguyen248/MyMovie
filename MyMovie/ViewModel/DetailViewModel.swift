@@ -9,12 +9,14 @@ import RxSwift
 import RxCocoa
 
 class DetailViewModel {
-    let sections: [DetailSectionType] = [.Media, .Overview, .Favorite, .Rating, .Cast, .Video, .Comment, .Recommendation]
+    let sections = BehaviorRelay<[DetailSectionType]>(value: [])
     
-    let movieDetail = BehaviorRelay<MovieDetailModel?>(value: nil)
+    var movieDetail: MovieDetailModel?
+    
     let movieId = PublishSubject<Int>()
+    let showFullOverview = PublishSubject<Bool>()
     
-    var overviewViewModel: OverviewViewModel?
+    var overviewVM: OverviewViewModel?
     var castSectionVM = BehaviorRelay<HorizontalListViewModel?>(value: nil)
     var videoSectionVM = BehaviorRelay<HorizontalListViewModel?>(value: nil)
     var commentSectionVM = BehaviorRelay<[ReviewModel]?>(value: nil)
@@ -33,20 +35,42 @@ class DetailViewModel {
         .subscribe(onNext: { [weak self] detail in
             
             self?.isLoading.accept(false)
+            self?.movieDetail = detail
             self?.setupOverview(withMovieDetail: detail)
             self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.Cast)
             self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.Video)
             self?.setupCommentSectionVM(withMovieDetail: detail)
             self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.Recommendation)
-            self?.movieDetail.accept(detail)
+            self?.setupSections(withMovieDetail: detail)
             
             }, onError: { [weak self] error in
                 self?.errorSubject.onNext(error)
         }).disposed(by: disposeBag)
     }
     
+    private func setupSections(withMovieDetail detail: MovieDetailModel) {
+        var results: [DetailSectionType] = [.Media, .Overview, .Favorite, .Rating]
+        if !(detail.credits?.credits ?? []).isEmpty {
+            results.append(.Cast)
+        }
+        if !(detail.videos?.results ?? []).isEmpty {
+            results.append(.Video)
+        }
+        if !(detail.reviews?.results ?? []).isEmpty {
+            results.append(.Comment)
+        }
+        if !(detail.recommendations?.movies ?? []).isEmpty {
+            results.append(.Recommendation)
+        }
+        sections.accept(results)
+    }
+    
     private func setupOverview(withMovieDetail detail: MovieDetailModel) {
-        overviewViewModel = OverviewViewModel(title: detail.title, overview: detail.overview, viewWidth: UIScreen.main.bounds.size.width - 16.0 - 10.0)
+        overviewVM = OverviewViewModel(title: detail.title, overview: detail.overview, viewWidth: UIScreen.main.bounds.size.width - 16.0 - 10.0)
+        overviewVM!.showFullText.asDriver().drive(onNext: { [weak self] isFull in
+            self?.overviewVM?.update()
+            self?.showFullOverview.onNext(isFull)
+        }).disposed(by: disposeBag)
     }
     
     private func setupHorizontalSectionVM(withMovieDetail detail: MovieDetailModel, sectionType: SectionType) {
@@ -113,7 +137,7 @@ class DetailViewModel {
         
         switch sectionType {
         case DetailSectionType.Recommendation:
-            guard let movieId = movieDetail.value?.movieId else {
+            guard let movieId = movieDetail?.movieId else {
                 return
             }
             let endpoint = APIEndpoint.getRecommendations(movieId: movieId, page: (sectionVM.pagingInfo?.currentPage ?? 0) + 1)

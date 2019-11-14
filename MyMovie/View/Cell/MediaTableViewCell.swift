@@ -42,8 +42,11 @@ class MediaTableViewCell: UITableViewCell, ReusableView {
         // Configure the view for the selected state
     }
     
-    func config(withMovieDetail detail: MovieDetailModel) {
+    func config(withMovieDetail detail: MovieDetailModel?) {
         movieDetail = detail
+        guard let detail = detail else {
+            return
+        }
         if let posterPath = detail.posterPath {
             posterImageView.kf.setImage(with: posterPath.posterUrl)
         }
