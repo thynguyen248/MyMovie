@@ -106,7 +106,7 @@ enum DetailSectionType: Int, SectionType {
         case .Comment:
             return 0
         case .Recommendation:
-            return 200
+            return 192
         }
     }
     

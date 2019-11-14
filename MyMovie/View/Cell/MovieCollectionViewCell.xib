@@ -107,7 +107,7 @@
                             <constraint firstItem="Lr7-Lk-7lb" firstAttribute="centerY" secondItem="bZS-T0-4Wp" secondAttribute="centerY" id="bhX-0o-KC6"/>
                             <constraint firstItem="7xf-K1-7lO" firstAttribute="centerX" secondItem="bZS-T0-4Wp" secondAttribute="centerX" id="fsP-P1-TFh"/>
                             <constraint firstItem="tTs-oG-nfV" firstAttribute="trailing" secondItem="bZS-T0-4Wp" secondAttribute="trailing" id="g0r-RH-sLN"/>
-                            <constraint firstAttribute="bottom" secondItem="1RM-iF-nUe" secondAttribute="bottom" id="oKJ-z9-tbP"/>
+                            <constraint firstAttribute="bottom" secondItem="1RM-iF-nUe" secondAttribute="bottom" priority="999" id="oKJ-z9-tbP"/>
                             <constraint firstAttribute="trailing" secondItem="1RM-iF-nUe" secondAttribute="trailing" id="pYX-jf-X4S"/>
                             <constraint firstItem="7xf-K1-7lO" firstAttribute="centerY" secondItem="bZS-T0-4Wp" secondAttribute="centerY" id="tqc-UV-kCv"/>
                             <constraint firstItem="1RM-iF-nUe" firstAttribute="top" secondItem="3Uj-pF-Ejf" secondAttribute="top" id="zRF-H2-oYt"/>
@@ -124,6 +124,7 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
+                <outlet property="bottomConstraint" destination="oKJ-z9-tbP" id="6ix-Hq-5Zm"/>
                 <outlet property="bottomTitleLabel" destination="DMT-3Z-CIC" id="QbR-SG-3vr"/>
                 <outlet property="bottomView" destination="qEY-qs-3jH" id="uzJ-rn-lKY"/>
                 <outlet property="centerTitleLabel" destination="7xf-K1-7lO" id="luO-1Y-ycS"/>

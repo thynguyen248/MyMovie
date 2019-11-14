@@ -20,6 +20,7 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var imageRatio: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var sectionType: SectionType?
     
@@ -54,6 +55,8 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
     private func updateUI(withSectionType sectionType: SectionType) {
         var titleFont = UIFont.boldSystemFont(ofSize: 15.0)
         var imageCornerRadius: CGFloat = 6.0
+        var keepImageRatio = false
+        var titleMaxLines = 2
         
         switch sectionType {
         case HomeSectionType.Recommendation:
@@ -61,7 +64,6 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
             centerTitleLabel.isHidden = true
             playButton.isHidden = true
             moreButton.isHidden = true
-            imageRatio.priority = UILayoutPriority(rawValue: 250)
         case HomeSectionType.Popular, HomeSectionType.TopRated, HomeSectionType.Upcoming, DetailSectionType.Recommendation:
             bottomView.isHidden = false
             bottomTitleLabel.isHidden = false
@@ -69,7 +71,7 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
             centerTitleLabel.isHidden = true
             playButton.isHidden = true
             moreButton.isHidden = false
-            imageRatio.priority = UILayoutPriority(rawValue: 999)
+            keepImageRatio = true
         case HomeSectionType.Category:
             bottomView.isHidden = true
             bottomTitleLabel.isHidden = true
@@ -77,7 +79,6 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
             centerTitleLabel.isHidden = false
             playButton.isHidden = true
             moreButton.isHidden = true
-            imageRatio.priority = UILayoutPriority(rawValue: 250)
         case DetailSectionType.Cast:
             bottomView.isHidden = false
             bottomTitleLabel.isHidden = false
@@ -85,23 +86,31 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
             centerTitleLabel.isHidden = true
             playButton.isHidden = true
             moreButton.isHidden = true
-            imageRatio.priority = UILayoutPriority(rawValue: 999)
+            keepImageRatio = true
             imageCornerRadius = 3.0
             titleFont = UIFont.systemFont(ofSize: 12.0)
+            titleMaxLines = 1
         case DetailSectionType.Video:
             bottomView.isHidden = true
             centerTitleLabel.isHidden = true
             playButton.isHidden = false
             moreButton.isHidden = true
-            imageRatio.priority = UILayoutPriority(rawValue: 250)
             imageCornerRadius = 12.0
         default:
             break
         }
         
+        if keepImageRatio {
+            imageRatio.priority = UILayoutPriority(rawValue: 999)
+            bottomConstraint.priority = UILayoutPriority(rawValue: 250)
+        } else {
+            imageRatio.priority = UILayoutPriority(rawValue: 250)
+            bottomConstraint.priority = UILayoutPriority(rawValue: 999)
+        }
         playerView.layer.cornerRadius = imageCornerRadius
         posterImageView.layer.cornerRadius = imageCornerRadius
         bottomTitleLabel.font = titleFont
+        bottomTitleLabel.numberOfLines = titleMaxLines
     }
     
     @IBAction func didTouchPlayButton(_ sender: AnyObject) {

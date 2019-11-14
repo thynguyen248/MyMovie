@@ -31,6 +31,14 @@ class HomeViewModel {
         }).disposed(by: disposeBag)
     }
     
+    func loadData() {
+        loadMovieList(type: HomeSectionType.Recommendation)
+        loadCategoryList()
+        loadMovieList(type: HomeSectionType.Popular)
+        loadMovieList(type: HomeSectionType.TopRated)
+        loadMovieList(type: HomeSectionType.Upcoming)
+    }
+    
     func getSectionViewModel(withType sectionType: SectionType) -> HorizontalListViewModel? {
         switch sectionType {
         case HomeSectionType.Recommendation:
@@ -48,7 +56,7 @@ class HomeViewModel {
         }
     }
     
-    func loadMovieList(type: SectionType, movieId: Int? = nil, currentPage: Int? = nil) {
+    private func loadMovieList(type: SectionType, movieId: Int? = nil, currentPage: Int? = nil) {
         var endpoint: APIEndpoint?
         
         let targetPagingInfo = getSectionViewModel(withType: type)?.pagingInfo
@@ -115,7 +123,7 @@ class HomeViewModel {
         }).disposed(by: disposeBag)
     }
     
-    func loadCategoryList() {
+    private func loadCategoryList() {
         APIManager.shared.getCategories()
             .subscribe(onSuccess: { [weak self] categoryResponse in
                 
@@ -132,13 +140,5 @@ class HomeViewModel {
         }, onError: { [weak self] error in
             self?.errorSubject.onNext(error)
         }).disposed(by: disposeBag)
-    }
-    
-    func loadData() {
-        loadMovieList(type: HomeSectionType.Recommendation)
-        loadCategoryList()
-        loadMovieList(type: HomeSectionType.Popular)
-        loadMovieList(type: HomeSectionType.TopRated)
-        loadMovieList(type: HomeSectionType.Upcoming)
     }
 }

@@ -48,6 +48,19 @@ class DetailViewModel {
         }).disposed(by: disposeBag)
     }
     
+    func getHorizontalSectionViewModel(withType sectionType: SectionType) -> HorizontalListViewModel? {
+        switch sectionType {
+        case DetailSectionType.Cast:
+            return castSectionVM.value
+        case DetailSectionType.Video:
+            return videoSectionVM.value
+        case DetailSectionType.Recommendation:
+            return recommendationSectionVM.value
+        default:
+            return nil
+        }
+    }
+    
     private func setupSections(withMovieDetail detail: MovieDetailModel) {
         var results: [DetailSectionType] = [.Media, .Overview, .Favorite, .Rating]
         if !(detail.credits?.credits ?? []).isEmpty {
@@ -117,20 +130,7 @@ class DetailViewModel {
         commentSectionVM.accept(comments)
     }
     
-    func getHorizontalSectionViewModel(withType sectionType: SectionType) -> HorizontalListViewModel? {
-        switch sectionType {
-        case DetailSectionType.Cast:
-            return castSectionVM.value
-        case DetailSectionType.Video:
-            return videoSectionVM.value
-        case DetailSectionType.Recommendation:
-            return recommendationSectionVM.value
-        default:
-            return nil
-        }
-    }
-    
-    func loadMore(sectionType: SectionType) {
+    private func loadMore(sectionType: SectionType) {
         guard let sectionVM = getHorizontalSectionViewModel(withType: sectionType) else {
             return
         }
