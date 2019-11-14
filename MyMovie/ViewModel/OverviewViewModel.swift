@@ -30,7 +30,7 @@ class OverviewViewModel {
         self.overview = overview
         self.viewWidth = viewWidth
         
-        maxHeight = overviewFont.lineHeight * overviewMaxLines
+        maxHeight = ceil(overviewFont.lineHeight * overviewMaxLines)
         titleHeight = (title ?? "").height(withConstrainedWidth: viewWidth, font: titleFont)
         originalOverviewHeight = (overview ?? "").height(withConstrainedWidth: viewWidth, font: overviewFont)
         isOverviewFit = originalOverviewHeight <= maxHeight
