@@ -30,10 +30,15 @@ class MediaTableViewCell: UITableViewCell, ReusableView {
         posterImageView.layer.cornerRadius = 6.0
         starView.settings.fillMode = .precise
         setupCollectionView()
+        setupYTPlayer()
     }
     
     private func setupCollectionView() {
         genreCollectionView.register(GenreCollectionViewCell.nib, forCellWithReuseIdentifier: GenreCollectionViewCell.identifier)
+    }
+    
+    private func setupYTPlayer() {
+        playerView.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -52,8 +57,9 @@ class MediaTableViewCell: UITableViewCell, ReusableView {
         }
         if let videos = detail.videos?.results, let key = videos.first?.key {
             videoThumnailImageView.kf.setImage(with: key.videoThumbnailUrl)
-            playerView.load(withVideoId: key)
-            playButton.isHidden = false
+            if playerView.videoUrl() == nil {
+                playerView.load(withVideoId: key, playerVars: ["controls": 0])
+            }
         } else {
             if let backDropPath = detail.backDropPath {
                 videoThumnailImageView.kf.setImage(with: backDropPath.posterUrl)
@@ -100,5 +106,21 @@ extension MediaTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10.0
+    }
+}
+
+extension MediaTableViewCell: YTPlayerViewDelegate {
+    func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
+        playerView.playVideo()
+        videoThumnailImageView.isHidden = true
+    }
+    
+    func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
+        switch state {
+        case .ended:
+            playerView.playVideo()
+        default:
+            break
+        }
     }
 }

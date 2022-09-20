@@ -35,7 +35,7 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
         self.sectionType = sectionType
         var imageUrl: URL?
         switch sectionType {
-        case DetailSectionType.Video:
+        case DetailSectionType.video:
             if let key = displayItem.itemId as? String {
                 imageUrl = key.videoThumbnailUrl
                 playerView.load(withVideoId: key)
@@ -59,12 +59,12 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
         var titleMaxLines = 2
         
         switch sectionType {
-        case HomeSectionType.Recommendation:
+        case HomeSectionType.recommendation:
             bottomView.isHidden = true
             centerTitleLabel.isHidden = true
             playButton.isHidden = true
             moreButton.isHidden = true
-        case HomeSectionType.Popular, HomeSectionType.TopRated, HomeSectionType.Upcoming, DetailSectionType.Recommendation:
+        case HomeSectionType.popular, HomeSectionType.topRated, HomeSectionType.upcoming, DetailSectionType.recommendation:
             bottomView.isHidden = false
             bottomTitleLabel.isHidden = false
             subTitleLabel.isHidden = true
@@ -72,14 +72,14 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
             playButton.isHidden = true
             moreButton.isHidden = false
             keepImageRatio = true
-        case HomeSectionType.Category:
+        case HomeSectionType.category:
             bottomView.isHidden = true
             bottomTitleLabel.isHidden = true
             subTitleLabel.isHidden = true
             centerTitleLabel.isHidden = false
             playButton.isHidden = true
             moreButton.isHidden = true
-        case DetailSectionType.Cast:
+        case DetailSectionType.cast:
             bottomView.isHidden = false
             bottomTitleLabel.isHidden = false
             subTitleLabel.isHidden = false
@@ -90,7 +90,7 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
             imageCornerRadius = 3.0
             titleFont = UIFont.systemFont(ofSize: 12.0)
             titleMaxLines = 1
-        case DetailSectionType.Video:
+        case DetailSectionType.video:
             bottomView.isHidden = true
             centerTitleLabel.isHidden = true
             playButton.isHidden = false
@@ -115,7 +115,7 @@ class MovieCollectionViewCell: UICollectionViewCell, ReusableView {
     
     @IBAction func didTouchPlayButton(_ sender: AnyObject) {
         switch sectionType {
-        case DetailSectionType.Video?:
+        case DetailSectionType.video?:
             playerView.playVideo()
         default:
             break

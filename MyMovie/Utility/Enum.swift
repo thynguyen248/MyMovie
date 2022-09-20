@@ -14,119 +14,119 @@ protocol SectionType {
 }
 
 enum HomeSectionType: Int, SectionType {
-    case Recommendation
-    case Category
-    case Popular
-    case TopRated
-    case Upcoming
+    case recommendation
+    case category
+    case popular
+    case topRated
+    case upcoming
     
     var description: String {
         switch self {
-        case .Recommendation:
+        case .recommendation:
             return "Recommendation"
-        case .Category:
+        case .category:
             return "Category"
-        case .Popular:
+        case .popular:
             return "Popular"
-        case .TopRated:
+        case .topRated:
             return "Top rated"
-        case .Upcoming:
+        case .upcoming:
             return "Upcoming"
         }
     }
     
     var itemHeight: CGFloat {
         switch self {
-        case .Recommendation:
+        case .recommendation:
             return 160.0
-        case .Category:
+        case .category:
             return 80.0
-        case .Popular, .TopRated, .Upcoming:
+        case .popular, .topRated, .upcoming:
             return 260.0
         }
     }
     
     var itemWidth: CGFloat {
         switch self {
-        case .Recommendation:
+        case .recommendation:
             return 300.0
-        case .Category:
+        case .category:
             return 140.0
-        case .Popular, .TopRated, .Upcoming:
+        case .popular, .topRated, .upcoming:
             return 140.0
         }
     }
 }
 
 enum DetailSectionType: Int, SectionType {
-    case Media
-    case Overview
-    case Favorite
-    case Rating
-    case Cast
-    case Video
-    case Comment
-    case Recommendation
+    case media
+    case overview
+    case favorite
+    case rating
+    case cast
+    case video
+    case comment
+    case recommendation
     
     var description: String {
         switch self {
-        case .Media:
+        case .media:
             return ""
-        case .Overview:
+        case .overview:
             return ""
-        case .Favorite:
+        case .favorite:
             return ""
-        case .Rating:
+        case .rating:
             return "Your Rate"
-        case .Cast:
+        case .cast:
             return "Series Cast"
-        case .Video:
+        case .video:
             return "Video"
-        case .Comment:
+        case .comment:
             return "Comments"
-        case .Recommendation:
+        case .recommendation:
             return "Recommendations"
         }
     }
     
     var itemHeight: CGFloat {
         switch self {
-        case .Media:
+        case .media:
             return 0
-        case .Overview:
+        case .overview:
             return 0
-        case .Favorite:
+        case .favorite:
             return 0
-        case .Rating:
+        case .rating:
             return 185
-        case .Cast:
+        case .cast:
             return 144
-        case .Video:
+        case .video:
             return 120
-        case .Comment:
+        case .comment:
             return 0
-        case .Recommendation:
+        case .recommendation:
             return 192
         }
     }
     
     var itemWidth: CGFloat {
         switch self {
-        case .Media:
+        case .media:
             return 0
-        case .Overview:
+        case .overview:
             return 0
-        case .Favorite:
+        case .favorite:
             return 0
-        case .Rating:
+        case .rating:
             return 0
-        case .Cast:
+        case .cast:
             return 70
-        case .Video:
+        case .video:
             return 200
-        case .Comment:
+        case .comment:
             return 0
-        case .Recommendation:
+        case .recommendation:
             return 100
         }
     }

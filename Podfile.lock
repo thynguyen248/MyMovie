@@ -19,7 +19,7 @@ DEPENDENCIES:
   - Kingfisher (~> 5.2.0)
   - Moya/RxSwift (~> 12.0.1)
   - RxCocoa
-  - youtube-ios-player-helper (~> 0.1.4)
+  - youtube-ios-player-helper
 
 SPEC REPOS:
   trunk:
@@ -42,6 +42,6 @@ SPEC CHECKSUMS:
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
 
-PODFILE CHECKSUM: 299262655de65a30710854fe32ca4ce52d302891
+PODFILE CHECKSUM: 908d37a8e374a780ac7986aa8e4dccb1037a8456
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.11.3

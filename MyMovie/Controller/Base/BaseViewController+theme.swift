@@ -9,7 +9,6 @@ import UIKit
 
 extension BaseViewController {
     func configDefaultTheme() {
-        navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

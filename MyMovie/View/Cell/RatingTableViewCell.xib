@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +20,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKK-Ug-BNl" customClass="CosmosView" customModule="Cosmos">
                         <rect key="frame" x="45" y="30" width="230" height="30"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="230" id="U99-uP-Zra"/>
                             <constraint firstAttribute="height" constant="30" id="glo-0b-v8x"/>
@@ -42,13 +43,13 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2o-yv-KMV">
-                        <rect key="frame" x="142.5" y="68" width="35.5" height="27"/>
+                        <rect key="frame" x="143" y="68" width="34" height="102"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                         <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVe-QJ-l9o">
-                        <rect key="frame" x="81.5" y="110" width="157" height="35"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVe-QJ-l9o">
+                        <rect key="frame" x="81" y="185" width="158" height="35"/>
                         <color key="backgroundColor" red="0.0" green="0.47843137254901957" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="pC1-LP-Wxm"/>
@@ -67,14 +68,15 @@
                     <constraint firstItem="sKK-Ug-BNl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="2Fa-Ej-Lyi"/>
                     <constraint firstItem="qVe-QJ-l9o" firstAttribute="top" secondItem="R2o-yv-KMV" secondAttribute="bottom" constant="15" id="6QX-5E-Zvc"/>
                     <constraint firstItem="sKK-Ug-BNl" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Hyc-UH-yoT"/>
+                    <constraint firstAttribute="bottom" secondItem="qVe-QJ-l9o" secondAttribute="bottom" constant="30" id="ICl-hQ-pee"/>
                     <constraint firstItem="R2o-yv-KMV" firstAttribute="top" secondItem="sKK-Ug-BNl" secondAttribute="bottom" constant="8" id="lWr-Mh-8zh"/>
                 </constraints>
             </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <constraints>
                 <constraint firstItem="qVe-QJ-l9o" firstAttribute="centerX" secondItem="njF-e1-oar" secondAttribute="centerX" id="Ngp-TG-qvq"/>
                 <constraint firstItem="R2o-yv-KMV" firstAttribute="centerX" secondItem="njF-e1-oar" secondAttribute="centerX" id="sw2-MT-M0H"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="commentButton" destination="qVe-QJ-l9o" id="9of-o1-OH3"/>
                 <outlet property="ratingLabel" destination="R2o-yv-KMV" id="OcP-gl-A63"/>
@@ -86,5 +88,8 @@
     <resources>
         <image name="star-selected" width="13" height="12"/>
         <image name="star-unselected" width="13" height="12"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

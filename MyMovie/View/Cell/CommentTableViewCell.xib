@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,19 +26,19 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="opq-1D-WvJ">
-                        <rect key="frame" x="66" y="15" width="238" height="99"/>
+                        <rect key="frame" x="66" y="15" width="238" height="270"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="7HJ-cx-Iiy">
-                                <rect key="frame" x="0.0" y="0.0" width="235.5" height="55"/>
+                                <rect key="frame" x="0.0" y="0.0" width="235" height="55"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAs-dM-8u2">
-                                        <rect key="frame" x="0.0" y="0.0" width="235.5" height="19.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="235" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It showed a lady fitted out with a fur hat and fur boa who sat upright" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Vg-cp-NL3">
-                                        <rect key="frame" x="0.0" y="21.5" width="235.5" height="33.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It showed a lady fitted out with a fur hat and fur boa who sat upright" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Vg-cp-NL3">
+                                        <rect key="frame" x="0.0" y="21.5" width="235" height="33.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -45,7 +46,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Noe-Cb-On3">
-                                <rect key="frame" x="0.0" y="66" width="102.5" height="10"/>
+                                <rect key="frame" x="0.0" y="151.5" width="102.5" height="10"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYD-Nt-NL1">
                                         <rect key="frame" x="0.0" y="0.0" width="19.5" height="10"/>
@@ -55,7 +56,7 @@
                                     </label>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMy-U6-lAq" customClass="CosmosView" customModule="Cosmos">
                                         <rect key="frame" x="24.5" y="0.0" width="78" height="10"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="78" id="hei-g3-eOy"/>
                                             <constraint firstAttribute="height" constant="10" id="jQd-7b-Rjp"/>
@@ -80,7 +81,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="yesterday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpN-iT-FEB">
-                                <rect key="frame" x="0.0" y="87" width="47.5" height="12"/>
+                                <rect key="frame" x="0.0" y="258" width="47.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -88,7 +89,7 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yj7-Ih-sx4">
-                        <rect key="frame" x="66" y="128" width="238" height="1"/>
+                        <rect key="frame" x="66" y="299" width="238" height="1"/>
                         <color key="backgroundColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Ow1-j7-gWn"/>
@@ -97,6 +98,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="opq-1D-WvJ" secondAttribute="trailing" constant="16" id="4E2-u0-mJM"/>
+                    <constraint firstAttribute="bottom" secondItem="yj7-Ih-sx4" secondAttribute="bottom" id="4S9-kB-ebE"/>
                     <constraint firstItem="ymi-Tw-DUO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="5Of-S8-UAe"/>
                     <constraint firstItem="yj7-Ih-sx4" firstAttribute="trailing" secondItem="opq-1D-WvJ" secondAttribute="trailing" id="70H-Qi-tNx"/>
                     <constraint firstItem="yj7-Ih-sx4" firstAttribute="top" secondItem="opq-1D-WvJ" secondAttribute="bottom" constant="14" id="Lzn-lC-eEe"/>
@@ -123,5 +125,8 @@
         <image name="default-avatar" width="100" height="100"/>
         <image name="star-selected" width="13" height="12"/>
         <image name="star-unselected" width="13" height="12"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

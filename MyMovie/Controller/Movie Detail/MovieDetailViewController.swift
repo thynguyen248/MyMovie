@@ -46,7 +46,7 @@ class MovieDetailViewController: BaseViewController {
         }).disposed(by: disposeBag)
         
         viewModel.showFullOverview.subscribe(onNext: { [weak self] _ in
-            if let sectionIndex = self?.viewModel.sections.value.firstIndex(where: { $0 == .Overview }) {
+            if let sectionIndex = self?.viewModel.sections.value.firstIndex(where: { $0 == .overview }) {
                 self?.tableView.reloadRows(at: [IndexPath(row: 0, section: sectionIndex)], with: .automatic)
             }
             }, onError: { [weak self] error in
@@ -134,7 +134,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionType = viewModel.sections.value[section]
         switch sectionType {
-        case .Comment:
+        case .comment:
             return (viewModel.commentSectionVM.value ?? []).count
         default:
             return 1
@@ -144,30 +144,27 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let sectionType = viewModel.sections.value[indexPath.section]
         switch sectionType {
-        case .Media:
-            let videoHeight = UIScreen.main.bounds.size.width * 9 / 16
-            return videoHeight + 109.0 + 16.0
-        case .Overview:
+        case .overview:
             return viewModel.overviewVM?.sectionHeight ?? .leastNormalMagnitude
-        case .Favorite:
+        case .favorite:
             return 110.0
-        case .Rating:
+        case .rating:
             return 175.0
-        case .Cast:
-            return sectionType.itemHeight + 39.0
-        case .Video:
+        case .cast:
+            return sectionType.itemHeight + 40.0
+        case .video:
             return sectionType.itemHeight + 45.0
-        case .Comment:
-            return 129.0
-        case .Recommendation:
-            return sectionType.itemHeight + 30.0
+        case .recommendation:
+            return sectionType.itemHeight + 40.0
+        default:
+            return UITableView.automaticDimension
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let sectionType = viewModel.sections.value[section]
         switch sectionType {
-        case .Media, .Overview, .Favorite:
+        case .media, .overview, .favorite:
             return .leastNormalMagnitude
         default:
             return 48.0
@@ -181,7 +178,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionType = viewModel.sections.value[section]
         switch sectionType {
-        case .Media, .Overview, .Favorite:
+        case .media, .overview, .favorite:
             return nil
         default:
             break
@@ -196,7 +193,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sectionType = viewModel.sections.value[indexPath.section]
         switch sectionType {
-        case .Media:
+        case .media:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MediaTableViewCell.identifier, for: indexPath) as? MediaTableViewCell else {
                 fatalError("unexpected cell in table view")
             }
@@ -204,7 +201,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
             cell.config(withMovieDetail: viewModel.movieDetail)
             return cell
             
-        case .Overview:
+        case .overview:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OverviewTableViewCell.identifier, for: indexPath) as? OverviewTableViewCell else {
                 fatalError("unexpected cell in table view")
             }
@@ -212,21 +209,21 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
             cell.config(withOverviewVM: viewModel.overviewVM)
             return cell
             
-        case .Favorite:
+        case .favorite:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else {
                 fatalError("unexpected cell in table view")
             }
             cell.selectionStyle = .none
             return cell
             
-        case .Rating:
+        case .rating:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RatingTableViewCell.identifier, for: indexPath) as? RatingTableViewCell else {
                 fatalError("unexpected cell in table view")
             }
             cell.selectionStyle = .none
             return cell
             
-        case .Cast, .Video, .Recommendation:
+        case .cast, .video, .recommendation:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HorizontalListTableViewCell.identifier, for: indexPath) as? HorizontalListTableViewCell else {
                 fatalError("unexpected cell in table view")
             }
@@ -243,7 +240,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
             }
             return cell
             
-        case .Comment:
+        case .comment:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier, for: indexPath) as? CommentTableViewCell else {
                 fatalError("unexpected cell in table view")
             }

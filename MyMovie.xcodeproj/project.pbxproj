@@ -181,13 +181,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		44470AA5237467B9009D6456 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Custom;
-			sourceTree = "<group>";
-		};
 		44EA6B5F23717EF2003914AF = {
 			isa = PBXGroup;
 			children = (
@@ -259,7 +252,6 @@
 		44EA6B9D2371AB81003914AF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				44470AA5237467B9009D6456 /* Custom */,
 				44EA6BAB2371B4ED003914AF /* Cell */,
 			);
 			path = View;

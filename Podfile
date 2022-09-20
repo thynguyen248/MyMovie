@@ -10,7 +10,7 @@ target 'MyMovie' do
   pod 'Moya/RxSwift', '~> 12.0.1'
   pod 'Kingfisher', '~> 5.2.0'
   pod 'Cosmos', '~> 20.0'
-  pod "youtube-ios-player-helper", "~> 0.1.4"
+  pod "youtube-ios-player-helper"
 
   target 'MyMovieTests' do
     inherit! :search_paths

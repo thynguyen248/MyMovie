@@ -17,7 +17,7 @@ struct ItemViewModel {
 
 struct HorizontalListViewModel {
     var dataList = [ItemViewModel]()
-    var sectionType: SectionType = HomeSectionType.Popular
+    var sectionType: SectionType = HomeSectionType.popular
     var pagingInfo: PagingInfoModel?
     var isLoadingMore = PublishSubject<Void>()
 }

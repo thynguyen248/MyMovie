@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 class HomeViewModel {
-    var sections: [HomeSectionType] = [.Recommendation, .Category, .Popular, .TopRated, .Upcoming]
+    var sections: [HomeSectionType] = [.recommendation, .category, .popular, .topRated, .upcoming]
     
     var recommendationSectionVM = BehaviorRelay<HorizontalListViewModel?>(value: nil)
     var categorySectionVM = BehaviorRelay<HorizontalListViewModel?>(value: nil)
@@ -32,24 +32,24 @@ class HomeViewModel {
     }
     
     func loadData() {
-        loadMovieList(type: HomeSectionType.Recommendation)
+        loadMovieList(type: HomeSectionType.recommendation)
         loadCategoryList()
-        loadMovieList(type: HomeSectionType.Popular)
-        loadMovieList(type: HomeSectionType.TopRated)
-        loadMovieList(type: HomeSectionType.Upcoming)
+        loadMovieList(type: HomeSectionType.popular)
+        loadMovieList(type: HomeSectionType.topRated)
+        loadMovieList(type: HomeSectionType.upcoming)
     }
     
     func getSectionViewModel(withType sectionType: SectionType) -> HorizontalListViewModel? {
         switch sectionType {
-        case HomeSectionType.Recommendation:
+        case HomeSectionType.recommendation:
             return recommendationSectionVM.value
-        case HomeSectionType.Category:
+        case HomeSectionType.category:
             return categorySectionVM.value
-        case HomeSectionType.Popular:
+        case HomeSectionType.popular:
             return popularSectionVM.value
-        case HomeSectionType.TopRated:
+        case HomeSectionType.topRated:
             return topRatedSectionVM.value
-        case HomeSectionType.Upcoming:
+        case HomeSectionType.upcoming:
             return upcomingSectionVM.value
         default:
             return nil
@@ -63,15 +63,15 @@ class HomeViewModel {
         let targetPage = (currentPage ?? targetPagingInfo?.currentPage ?? 0) + 1
         
         switch type {
-        case HomeSectionType.Recommendation:
+        case HomeSectionType.recommendation:
             // Hard code
             let targetId = movieId ?? 278
             endpoint = APIEndpoint.getRecommendations(movieId: targetId, page: targetPage)
-        case HomeSectionType.Popular:
+        case HomeSectionType.popular:
             endpoint = APIEndpoint.getPopular(page: targetPage)
-        case HomeSectionType.TopRated:
+        case HomeSectionType.topRated:
             endpoint = APIEndpoint.getTopRated(page: targetPage)
-        case HomeSectionType.Upcoming:
+        case HomeSectionType.upcoming:
             endpoint = APIEndpoint.getUpcoming(page: targetPage)
         default:
             break
@@ -88,22 +88,22 @@ class HomeViewModel {
             sectionVM.sectionType = type
             
             switch type {
-            case HomeSectionType.Recommendation:
+            case HomeSectionType.recommendation:
                 sectionVM.dataList = (self?.recommendationSectionVM.value?.dataList ?? []) + displayVMs
                 sectionVM.pagingInfo = response.pagingInfo
                 self?.recommendationSectionVM.accept(sectionVM)
                 
-            case HomeSectionType.Popular:
+            case HomeSectionType.popular:
                 sectionVM.dataList = (self?.popularSectionVM.value?.dataList ?? []) + displayVMs
                 sectionVM.pagingInfo = response.pagingInfo
                 self?.popularSectionVM.accept(sectionVM)
                 
-            case HomeSectionType.TopRated:
+            case HomeSectionType.topRated:
                 sectionVM.dataList = (self?.topRatedSectionVM.value?.dataList ?? []) + displayVMs
                 sectionVM.pagingInfo = response.pagingInfo
                 self?.topRatedSectionVM.accept(sectionVM)
                 
-            case HomeSectionType.Upcoming:
+            case HomeSectionType.upcoming:
                 sectionVM.dataList = (self?.upcomingSectionVM.value?.dataList ?? []) + displayVMs
                 sectionVM.pagingInfo = response.pagingInfo
                 self?.upcomingSectionVM.accept(sectionVM)
@@ -133,7 +133,7 @@ class HomeViewModel {
                 
                 let displayVMs = genres.map { ItemViewModel(itemId: nil, title: $0.name, subTitle: nil, posterPath: nil) }
                 var sectionVM = HorizontalListViewModel()
-                sectionVM.sectionType = HomeSectionType.Category
+                sectionVM.sectionType = HomeSectionType.category
                 sectionVM.dataList = displayVMs
                 self?.categorySectionVM.accept(sectionVM)
                 

@@ -37,10 +37,10 @@ class DetailViewModel {
             self?.isLoading.accept(false)
             self?.movieDetail = detail
             self?.setupOverview(withMovieDetail: detail)
-            self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.Cast)
-            self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.Video)
+            self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.cast)
+            self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.video)
             self?.setupCommentSectionVM(withMovieDetail: detail)
-            self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.Recommendation)
+            self?.setupHorizontalSectionVM(withMovieDetail: detail, sectionType: DetailSectionType.recommendation)
             self?.setupSections(withMovieDetail: detail)
             
             }, onError: { [weak self] error in
@@ -50,11 +50,11 @@ class DetailViewModel {
     
     func getHorizontalSectionViewModel(withType sectionType: SectionType) -> HorizontalListViewModel? {
         switch sectionType {
-        case DetailSectionType.Cast:
+        case DetailSectionType.cast:
             return castSectionVM.value
-        case DetailSectionType.Video:
+        case DetailSectionType.video:
             return videoSectionVM.value
-        case DetailSectionType.Recommendation:
+        case DetailSectionType.recommendation:
             return recommendationSectionVM.value
         default:
             return nil
@@ -62,18 +62,18 @@ class DetailViewModel {
     }
     
     private func setupSections(withMovieDetail detail: MovieDetailModel) {
-        var results: [DetailSectionType] = [.Media, .Overview, .Favorite, .Rating]
+        var results: [DetailSectionType] = [.media, .overview, .favorite, .rating]
         if !(detail.credits?.credits ?? []).isEmpty {
-            results.append(.Cast)
+            results.append(.cast)
         }
         if !(detail.videos?.results ?? []).isEmpty {
-            results.append(.Video)
+            results.append(.video)
         }
         if !(detail.reviews?.results ?? []).isEmpty {
-            results.append(.Comment)
+            results.append(.comment)
         }
         if !(detail.recommendations?.movies ?? []).isEmpty {
-            results.append(.Recommendation)
+            results.append(.recommendation)
         }
         sections.accept(results)
     }
@@ -92,19 +92,19 @@ class DetailViewModel {
         sectionVM.sectionType = sectionType
         
         switch sectionType {
-        case DetailSectionType.Cast:
+        case DetailSectionType.cast:
             guard let credits = detail.credits?.credits, !credits.isEmpty else {
                 return
             }
             sectionVM.dataList = credits.map { ItemViewModel(itemId: nil, title: $0.title, subTitle: $0.subTitle, posterPath: $0.profileUrlPath) }
             castSectionVM.accept(sectionVM)
-        case DetailSectionType.Video:
+        case DetailSectionType.video:
             guard let videos = detail.videos?.results, !videos.isEmpty else {
                 return
             }
             sectionVM.dataList = videos.map { ItemViewModel(itemId: $0.key, title: nil, subTitle: nil, posterPath: nil) }
             videoSectionVM.accept(sectionVM)
-        case DetailSectionType.Recommendation:
+        case DetailSectionType.recommendation:
             guard let movies = detail.recommendations?.movies, !movies.isEmpty else {
                 return
             }
@@ -136,7 +136,7 @@ class DetailViewModel {
         }
         
         switch sectionType {
-        case DetailSectionType.Recommendation:
+        case DetailSectionType.recommendation:
             guard let movieId = movieDetail?.movieId else {
                 return
             }
